@@ -108,8 +108,23 @@ if(filmArray>(filmArray.length-1)){
 }
 
 })
+let array =[1,2,3,5,6,7]
+router.get('/sol',(req,res)=>{
+    
+console.log("missingElement",req.params)
+//const array =[1,2,3,5,6,7]
+let missingElement = (arr)=>{
+let sum = arr.length+1
+let total =(sum*(sum+1))/2
+let totalNumber = 0
+for(let i=0;i<arr.length;i++){
+    totalNumber+=arr[i]
+} 
+return total-totalNumber
+}
+res.send(missingElement(array))
 
-
+})
 
 
 
