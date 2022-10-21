@@ -69,5 +69,89 @@ router.post("/test-post-4", function(req, res) {
     arr.push(ele)
     res.send(  { msg: arr , status: true }  )
 })
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ]
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ]
+       },
+    ]
+ 
 
-module.exports = router;
+router.post('/players',(req,res)=>{
+let bodyName = req.body
+const playerDetail = players.find(x=>x.name===bodyName.name)
+if(playerDetail){
+    res.send({ message:"players already exist"})
+}else{
+players.push(bodyName)
+res.send(players)
+}
+})
+//SSIGNMENT:
+//you will be given an array of persons ( i.e an array of objects )..
+//each person will have  a {name: String , age: Number, votingStatus: true/false(Boolean)}
+//take input in query param as votingAge..and for all the people above that age, change votingStatus as true
+//also return an array consisting of only the person that can vote
+
+
+  
+let persons= [
+    {
+    name: "PK",
+    age: 10,
+    votingStatus: false
+ },
+ {
+    name: "SK",
+    age: 20,
+    votingStatus: false
+ },
+ {
+    name: "AA",
+    age: 70,
+    votingStatus: false
+ },
+ {
+    name: "SC",
+    age: 5,
+    votingStatus: false
+ },
+ {
+    name: "HO",
+    age: 40,
+    votingStatus: false
+ }
+ ]
+
+  router.post('/person',(req,res)=>{
+  let age = req.query.age // data can acccess 
+  let final =persons.filter((a)=>a.age>age)  /// using filter method
+    final.forEach(a=>a.votingStatus="true")  /// using forEach method
+    console.log(persons)
+    res.send("voter list is updated")
+})
+  module.exports = router;
