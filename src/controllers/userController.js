@@ -12,4 +12,8 @@ const getUsersData= async function (req, res) {
 }
 
 module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
+module.exports.getUsersData= getUsersData   
+//module.exports.bookName = bookName
+
+
+//.find({$or:[n>5,n>=10]})
