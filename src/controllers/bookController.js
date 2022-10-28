@@ -1,6 +1,8 @@
 const BookModel = require("../models/bookModel")
-//const BookModel= require("../models/bookModel")
-const bookName = async (req,res)=>{
+
+/*const bookName = async (req,res)=>{
+
+
     let data1 = req.body
     let allData = await BookModel.create(data1)
     res.send({msg: allData})
@@ -46,7 +48,7 @@ const  Books ={
 
     let getRupees = await BookModel.find({ Books})
 
-        
+        //ankit mentor
        
     res.send({msg:getRupees})
  }
@@ -71,4 +73,40 @@ module.exports.createBook = createBook
 module.exports.bookList = bookList
 module.exports.getBooksInYear = getBooksInYear
 module.exports.getXINRBooks = getXINRBooks
-module.exports.getRandomBooks = getRandomBooks
+module.exports.getRandomBooks = getRandomBooks*/
+
+const bookAuthors = async (req,res)=>{
+
+
+    let data1 = req.body
+    let data2 = await BookModel.create(data1)
+    res.send({msg: data2})
+}
+
+//find the author of “Two states” and update the book price to 100; 
+// Send back the author_name and updated price in response. 
+// ( This will also need 2  queries- 1st will be a findOneAndUpdate. 
+//The second will be a find query aith author_id from previous query)
+const nitu = async (req,res)=>{
+    let statedata = await BookModel.findOneAndUpdate({author:"Two states"},
+    {$set:price=100})
+    res.send({msg: statedata})
+}
+
+const id = async (req,res)=>{
+    let statedata = await BookModel.find({author_id:1}
+    )
+    res.send({msg: statedata})
+}
+//Find the books which costs between 50-100(50,100 inclusive)
+ //and respond back with the author names of respective books
+
+ const costs = async (req,res)=>{
+    const costsData= bookModel.find( { price : { $gte: 50, $lte: 100} } ).select({ author_id :1})
+    res.send({msg: costsData})
+}
+
+module.exports.bookAuthors = bookAuthors
+module.exports.nitu = nitu
+module.exports.id = id
+module.exports.costs=costs

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
 //problem no:1
 //Create a books collection in your DB ( using bookModel with following fields)
@@ -7,13 +7,13 @@ const mongoose = require('mongoose');
 
 
 
-const bookSchema = new mongoose.Schema({
+/*const bookSchema = new mongoose.Schema({
     bookName:String,
     authorName :String,
     category: String,
     year:  Number,
     
-    tags:[String],
+    tags:[String,],
     isPublished:Boolean,
     prices:{
         indianRupees:String,
@@ -28,4 +28,28 @@ const bookSchema = new mongoose.Schema({
 },{timestamps:true})
 
 
-module.exports = mongoose.model('book', bookSchema)
+module.exports = mongoose.model('book', bookSchema)*/
+
+const mongoose = require('mongoose');
+
+const booksUser = new mongoose.Schema(
+
+
+
+
+
+    { 
+        name:String,
+        author_id:Number,
+        price:Number,
+        ratings:Number,
+    },{timestamps:true}
+
+
+
+
+
+)
+    
+
+module.exports = mongoose.model('booksauthor', booksUser)
