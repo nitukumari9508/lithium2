@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
+//const  publishController  = require('../controllers/publishController');
 const ObjectId = mongoose.Schema.Types.ObjectId
 
-const bookSchema = new mongoose.Schema( {
-    name: String,
-    author_id: {
-        type: ObjectId,
-        ref: "Author"
-    }, 
-    price: Number,
-    ratings: Number
+const newBook = new mongoose.Schema( {
 
+_id: {
+    type: ObjectId,
+    ref: "newAuthor"
+  },
+    price: Number,
+    ratings: Number,
+     id: {
+       type: ObjectId,
+        ref: "newPublish"
+      }
 
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('LibraryBook', bookSchema)
+module.exports = mongoose.model('newBook', newBook)
