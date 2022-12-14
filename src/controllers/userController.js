@@ -1,17 +1,22 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
-
+//const {authenticate,authorise} = require("../middleware/auth")
 const createUser = async function (abcd, xyz) {
   //You can name the req, res objects anything.
   //but the first parameter is always the request 
   //the second parameter is always the response
+  try{
   let data = abcd.body;
   let savedData = await userModel.create(data);
   console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
+  xyz.status(201).send({ msg: savedData });}
+  catch(error){
+    res.status(500).send({error:error.message})
+  }
 };
 
 const loginUser = async function (req, res) {
+  
   let userName = req.body.emailId;
   let password = req.body.password;
 
@@ -41,29 +46,25 @@ const loginUser = async function (req, res) {
 };
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+ 
 
   //If no token is present in the request header return error
-  if (!token) return res.send({ status: false, msg: "token must be present" });
-
-  console.log(token);
+  
+ 
   
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
-  let decodedToken = jwt.verify(token, "functionup-thorium");
-  if (!decodedToken)
-    return res.send({ status: false, msg: "token is invalid" });
+  
 
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
   if (!userDetails)
     return res.send({ status: false, msg: "No such user exists" });
 
-  res.send({ status: true, data: userDetails });
+   return res.status(200).send({ status: true, data: userDetails });
 };
 
 const updateUser = async function (req, res) {
@@ -85,11 +86,13 @@ const updateUser = async function (req, res) {
 };
 
 const postMessage = async function (req, res) {
+  
     let message = req.body.message
     // Check if the token is present
     // Check if the token present is a valid token
     // Return a different error message in both these cases
     let token = req.headers["x-auth-token"]
+    
     if(!token) return res.send({status: false, msg: "token must be present in the request header"})
     let decodedToken = jwt.verify(token, 'functionup-thorium')
 
